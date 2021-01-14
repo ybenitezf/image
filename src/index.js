@@ -126,7 +126,6 @@ export default class ImageTool {
       uploader: config.uploader || undefined,
       actions: config.actions || [],
     };
-    console.log(config) // REMOVEME !!!
 
     /**
      * Module for file uploading
@@ -257,7 +256,6 @@ export default class ImageTool {
    * @returns {void}
    */
   async onPaste(event) {
-    console.log("ImageTool.onPaste")
     switch (event.type) {
       case 'tag': {
         const image = event.detail.data;
@@ -276,7 +274,6 @@ export default class ImageTool {
       }
       case 'pattern': {
         const url = event.detail.data;
-        console.log("Paste URL" + url)
 
         this.uploadUrl(url);
         break;
@@ -352,6 +349,7 @@ export default class ImageTool {
    * @returns {void}
    */
   onUpload(response) {
+    console.log(response)
     if (response.success && response.file) {
       this.image = response.file;
 
