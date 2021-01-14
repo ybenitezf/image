@@ -28,6 +28,9 @@ export default class Ui {
       caption: make('div', [this.CSS.input, this.CSS.caption], {
         contentEditable: !this.readOnly,
       }),
+      credit: make('div', [this.CSS.input, this.CSS.credit], {
+        contentEditable: !this.readOnly,
+      })
     };
 
     /**
@@ -41,9 +44,11 @@ export default class Ui {
      *  </wrapper>
      */
     this.nodes.caption.dataset.placeholder = this.config.captionPlaceholder;
+    this.nodes.credit.dataset.placeholder = this.config.creditPlaceholder;
     this.nodes.imageContainer.appendChild(this.nodes.imagePreloader);
     this.nodes.wrapper.appendChild(this.nodes.imageContainer);
     this.nodes.wrapper.appendChild(this.nodes.caption);
+    this.nodes.wrapper.appendChild(this.nodes.credit);
     this.nodes.wrapper.appendChild(this.nodes.fileButton);
   }
 
@@ -67,6 +72,7 @@ export default class Ui {
       imagePreloader: 'image-tool__image-preloader',
       imageEl: 'image-tool__image-picture',
       caption: 'image-tool__caption',
+      credit: 'image-tool__credit',
     };
   };
 
@@ -221,6 +227,18 @@ export default class Ui {
   fillCaption(text) {
     if (this.nodes.caption) {
       this.nodes.caption.innerHTML = text;
+    }
+  }
+
+  /**
+   * Shows credit input
+   *
+   * @param {string} text - credit text
+   * @returns {void}
+   */
+  fillCredit(text) {
+    if (this.nodes.credit) {
+      this.nodes.credit.innerHTML = text;
     }
   }
 

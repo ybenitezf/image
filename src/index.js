@@ -34,6 +34,7 @@
  * @typedef {object} ImageToolData
  * @description Image Tool's input and output data format
  * @property {string} caption — image caption
+ * @property {string} credit — image credit
  * @property {boolean} withBorder - should image be rendered with border
  * @property {boolean} withBackground - should image be rendered with background
  * @property {boolean} stretched - should image be stretched to full width of container
@@ -57,6 +58,7 @@ import Uploader from './uploader';
  * @property {string} field - field name for uploaded image
  * @property {string} types - available mime-types
  * @property {string} captionPlaceholder - placeholder for Caption field
+ * @property {string} creditPlaceholder - placeholder for Credit field
  * @property {object} additionalRequestData - any data to send with requests
  * @property {object} additionalRequestHeaders - allows to pass custom headers with Request
  * @property {string} buttonContent - overrides for Select File button
@@ -119,10 +121,12 @@ export default class ImageTool {
       field: config.field || 'image',
       types: config.types || 'image/*',
       captionPlaceholder: this.api.i18n.t(config.captionPlaceholder || 'Caption'),
+      creditPlaceholder: this.api.i18n.t(config.creditPlaceholder || 'Credit'),
       buttonContent: config.buttonContent || '',
       uploader: config.uploader || undefined,
       actions: config.actions || [],
     };
+    console.log(config) // REMOVEME !!!
 
     /**
      * Module for file uploading
@@ -185,8 +189,10 @@ export default class ImageTool {
    */
   save() {
     const caption = this.ui.nodes.caption;
+    const credit = this.ui.nodes.credit;
 
     this._data.caption = caption.innerHTML;
+    this._data.credit = credit.innerHTML;
 
     return this.data;
   }
@@ -251,6 +257,7 @@ export default class ImageTool {
    * @returns {void}
    */
   async onPaste(event) {
+    console.log("ImageTool.onPaste")
     switch (event.type) {
       case 'tag': {
         const image = event.detail.data;
@@ -269,6 +276,7 @@ export default class ImageTool {
       }
       case 'pattern': {
         const url = event.detail.data;
+        console.log("Paste URL" + url)
 
         this.uploadUrl(url);
         break;
@@ -299,6 +307,8 @@ export default class ImageTool {
 
     this._data.caption = data.caption || '';
     this.ui.fillCaption(this._data.caption);
+    this._data.credit = data.credit || '';
+    this.ui.fillCredit(this._data.credit);
 
     Tunes.tunes.forEach(({ name: tune }) => {
       const value = typeof data[tune] !== 'undefined' ? data[tune] === true || data[tune] === 'true' : false;
@@ -344,6 +354,17 @@ export default class ImageTool {
   onUpload(response) {
     if (response.success && response.file) {
       this.image = response.file;
+
+      // optional, if response includes credit or caption
+      if (response.credit) {
+        this._data.credit = response.credit;
+        this.ui.fillCredit(this._data.credit);
+      }
+
+      if (response.caption) {
+        this._data.caption = response.caption;
+        this.ui.fillCaption(this._data.caption);
+      }
     } else {
       this.uploadingFailed('incorrect response: ' + JSON.stringify(response));
     }
