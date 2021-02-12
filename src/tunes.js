@@ -26,22 +26,23 @@ export default class Tunes {
    * @returns {{name: string, icon: string, title: string}[]}
    */
   static get tunes() {
+    // disable all tunes
     return [
-      {
-        name: 'withBorder',
-        icon: borderIcon,
-        title: 'With border',
-      },
-      {
-        name: 'stretched',
-        icon: stretchedIcon,
-        title: 'Stretch image',
-      },
-      {
-        name: 'withBackground',
-        icon: bgIcon,
-        title: 'With background',
-      },
+      // {
+      //   name: 'withBorder',
+      //   icon: borderIcon,
+      //   title: 'With border',
+      // },
+      // {
+      //   name: 'stretched',
+      //   icon: stretchedIcon,
+      //   title: 'Stretch image',
+      // },
+      // {
+      //   name: 'withBackground',
+      //   icon: bgIcon,
+      //   title: 'With background',
+      // },
     ];
   }
 
