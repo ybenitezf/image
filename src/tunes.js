@@ -34,6 +34,10 @@ export default class Tunes {
     };
   }
 
+  static get tunes() {
+    return [];
+  }
+
   /**
    * Makes buttons with tunes: add background, add border, stretch image
    *
