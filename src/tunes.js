@@ -1,7 +1,7 @@
 import { make } from './ui';
-import bgIcon from './svg/background.svg';
-import borderIcon from './svg/border.svg';
-import stretchedIcon from './svg/stretched.svg';
+// import bgIcon from './svg/background.svg';
+// import borderIcon from './svg/border.svg';
+// import stretchedIcon from './svg/stretched.svg';
 
 /**
  * Working with Block Tunes
@@ -18,32 +18,6 @@ export default class Tunes {
     this.actions = actions;
     this.onChange = onChange;
     this.buttons = [];
-  }
-
-  /**
-   * Available Image tunes
-   *
-   * @returns {{name: string, icon: string, title: string}[]}
-   */
-  static get tunes() {
-    // disable all tunes
-    return [
-      // {
-      //   name: 'withBorder',
-      //   icon: borderIcon,
-      //   title: 'With border',
-      // },
-      // {
-      //   name: 'stretched',
-      //   icon: stretchedIcon,
-      //   title: 'Stretch image',
-      // },
-      // {
-      //   name: 'withBackground',
-      //   icon: bgIcon,
-      //   title: 'With background',
-      // },
-    ];
   }
 
   /**
